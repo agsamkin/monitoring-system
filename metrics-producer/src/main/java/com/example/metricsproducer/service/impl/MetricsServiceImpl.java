@@ -7,22 +7,26 @@ import com.example.metricsproducer.service.MetricsService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
 public class MetricsServiceImpl implements MetricsService {
 
-    private String[] metricNames = {"application.ready.time", "jvm.memory.max", "process.uptime"};
-
+    private final Environment environment;
     private final ActuatorAPI actuatorAPI;
 
     @Override
     public List<MetricsEvent> getMetrics() {
         List<MetricsEvent> metrics = new ArrayList<>();
+
+        String metricProps = environment.getProperty("application.metrics");
+        String[] metricNames = Objects.isNull(metricProps) ? new String[] {} : metricProps.split(",");
 
         for (String name : metricNames) {
             var response = actuatorAPI.getMetrics(name);

@@ -4,6 +4,7 @@ server:
 application:
   kafka:
     metrics-topic: metrics-topic
+  metrics: application.ready.time,jvm.memory.max,process.uptime
 
 spring:
   profiles:
@@ -26,6 +27,11 @@ spring:
 
         enable.idempotence: true
         max.in.flight.requests.per.connection: 5
+
+  task:
+    scheduling:
+      pool:
+        size: 3
 
 management:
   endpoints:

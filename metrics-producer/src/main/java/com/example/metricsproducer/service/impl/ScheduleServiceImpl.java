@@ -9,6 +9,7 @@ import com.example.metricsproducer.service.ScheduleService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,13 @@ import java.util.List;
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
 
-    private static final int ONE_MIN = 60000;
-    private static final int ONE_HOUR = 3600000;
+    public static final int INITIAL_DELAY = 60000;
+    public static final int FIXED_DELAY = 60000; // 300_000;
 
     private final MetricsService metricsService;
     private final MetricsProducer metricsProducer;
 
-//    @Scheduled(initialDelay = ONE_MIN * 5, fixedDelay = ONE_HOUR)
-    @Scheduled(initialDelay = ONE_MIN, fixedDelay = ONE_MIN)
+    @Scheduled(initialDelay = INITIAL_DELAY, fixedDelay = FIXED_DELAY)
     @Override
     public void sendMetrics() {
         List<MetricsEvent> events = metricsService.getMetrics();
