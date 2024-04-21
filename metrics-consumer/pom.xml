@@ -11,7 +11,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>metrics-consumer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.01</version>
 
 	<name>metrics-consumer</name>
 	<description>Metrics Consumer Service</description>
