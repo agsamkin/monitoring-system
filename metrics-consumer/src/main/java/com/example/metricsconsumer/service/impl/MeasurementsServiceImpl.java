@@ -73,35 +73,32 @@ public class MeasurementsServiceImpl implements MeasurementsService {
 
         }
 
-        List<MeasurementDto> measurements;
+        List<Measurement> measurements;
 
         if (Objects.nonNull(metricId) && Objects.nonNull(of)) {
-            measurements = measurementsRepository.findAllByCreatedAtBetweenAndMetricId(from, to, metricId, of)
-                    .stream()
-                    .map(this::mapToDto)
-                    .sorted(Comparator.comparing(MeasurementDto::getCreatedAt))
-                    .collect(Collectors.toList());
+            measurements = measurementsRepository.findAllByCreatedAtBetweenAndMetricId(from, to, metricId, of);
         } else if (Objects.nonNull(of)) {
-            measurements = measurementsRepository.findAllByCreatedAtBetween(from, to, of)
-                    .stream()
-                    .map(this::mapToDto)
-                    .sorted(Comparator.comparing(MeasurementDto::getCreatedAt))
-                    .collect(Collectors.toList());
+            measurements = measurementsRepository.findAllByCreatedAtBetween(from, to, of);
         } else if (Objects.nonNull(metricId)) {
-            measurements = measurementsRepository.findAllByCreatedAtBetweenAndMetricId(from, to, metricId)
-                    .stream()
+            measurements = measurementsRepository.findAllByCreatedAtBetweenAndMetricId(from, to, metricId);
+        } else {
+            measurements = measurementsRepository.findAllByCreatedAtBetween(from, to);
+        }
+
+        List<MeasurementDto> measurementsDto;
+
+        if (Objects.nonNull(params) && Objects.nonNull(params.getSort())) {
+            measurementsDto = measurements.stream()
                     .map(this::mapToDto)
-                    .sorted(Comparator.comparing(MeasurementDto::getCreatedAt))
                     .collect(Collectors.toList());
         } else {
-            measurements = measurementsRepository.findAllByCreatedAtBetween(from, to)
-                    .stream()
+            measurementsDto = measurements.stream()
                     .map(this::mapToDto)
                     .sorted(Comparator.comparing(MeasurementDto::getCreatedAt))
                     .collect(Collectors.toList());
         }
 
-        return measurements;
+        return measurementsDto;
 
     }
 

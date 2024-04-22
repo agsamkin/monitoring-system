@@ -37,7 +37,6 @@ public class MetricsServiceImpl implements MetricsService {
         return mapToDto(metric);
     }
 
-
     @Transactional(readOnly = true)
     @Override
     public List<MetricDto> getAllMetrics() {
