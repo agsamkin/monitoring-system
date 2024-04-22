@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>com.example</groupId>
-	<artifactId>metricInfos-producer</artifactId>
+	<artifactId>metrics-producer</artifactId>
 	<version>1.01</version>
 
 	<name>metrics-producer</name>
