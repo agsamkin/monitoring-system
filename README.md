@@ -44,7 +44,7 @@ delivery.timeout.ms = 10000
 linger.ms = 0 
 request.timeout.ms = 5000 
 enable.idempotence = true 
-max.in.flight.requests.per.connection - 5
+max.in.flight.requests.per.connection = 5
 ``` 
 
 Kafka consumer:
