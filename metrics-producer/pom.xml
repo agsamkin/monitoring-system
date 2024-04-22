@@ -14,7 +14,7 @@
 	<artifactId>metricInfos-producer</artifactId>
 	<version>1.01</version>
 
-	<name>metricInfos-producer</name>
+	<name>metrics-producer</name>
 	<description>Metrics Producer Service</description>
 
 	<properties>
