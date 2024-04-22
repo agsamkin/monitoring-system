@@ -10,10 +10,10 @@
 	</parent>
 
 	<groupId>com.example</groupId>
-	<artifactId>metrics-consumer</artifactId>
+	<artifactId>metricInfos-consumer</artifactId>
 	<version>1.01</version>
 
-	<name>metrics-consumer</name>
+	<name>metricInfos-consumer</name>
 	<description>Metrics Consumer Service</description>
 
 	<properties>

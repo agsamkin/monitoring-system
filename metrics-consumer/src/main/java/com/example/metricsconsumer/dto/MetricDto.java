@@ -2,7 +2,6 @@ package com.example.metricsconsumer.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
@@ -20,10 +19,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MetricDto {
-    private Long id;
     private String name;
-    private String description;
-    private String baseUnit;
+    private String statistic;
+    private Double value;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

@@ -3,9 +3,9 @@ package com.example.metricsconsumer.handler;
 import com.example.core.event.MetricsEvent;
 
 import com.example.metricsconsumer.exception.custom.RetryableException;
-import com.example.metricsconsumer.model.Measurement;
 import com.example.metricsconsumer.model.Metric;
-import com.example.metricsconsumer.service.MeasurementsService;
+import com.example.metricsconsumer.model.MetricInfo;
+import com.example.metricsconsumer.service.MetricsService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,25 +20,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class MetricsEventHandler {
 
-    private final MeasurementsService measurementsService;
+    private final MetricsService metricsService;
 
     @KafkaHandler
     public void handle(MetricsEvent metricsEvent) {
 
-        Metric metric = Metric.builder()
+        MetricInfo metricInfo = MetricInfo.builder()
                 .name(metricsEvent.getName())
                 .description(metricsEvent.getDescription())
                 .baseUnit(metricsEvent.getBaseUnit())
                 .build();
 
-        Measurement measurement = Measurement.builder()
-                .metric(metric)
+        Metric metric = Metric.builder()
+                .metricInfo(metricInfo)
                 .statistic(metricsEvent.getStatistic())
                 .value(metricsEvent.getValue()).build();
 
         try {
             log.info("Received event: {}", metricsEvent.getName());
-            measurementsService.saveMeasurement(measurement);
+            metricsService.saveMetric(metric);
         } catch (Throwable e) {
             log.error(e.getMessage());
             throw new RetryableException(e);

@@ -1,19 +1,23 @@
 package com.example.metricsconsumer.service.impl;
 
 import com.example.metricsconsumer.dto.MetricDto;
-import com.example.metricsconsumer.exception.custom.MetricNotFoundException;
 import com.example.metricsconsumer.model.Metric;
+import com.example.metricsconsumer.model.MetricInfo;
 
 import com.example.metricsconsumer.repository.MetricsRepository;
+
 import com.example.metricsconsumer.service.MetricsService;
+import com.example.metricsconsumer.service.MetricsInfoService;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -22,41 +26,49 @@ import java.util.stream.Collectors;
 public class MetricsServiceImpl implements MetricsService {
 
     private final MetricsRepository metricsRepository;
+    private final MetricsInfoService metricsInfoService;
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Metric> getMetricByName(String name) {
-        return metricsRepository.findByName(name);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public MetricDto getMetricById(long id) {
-        Metric metric = metricsRepository.findById(id)
-                .orElseThrow(() -> new MetricNotFoundException("Metric not found by id: " + id));
-        return mapToDto(metric);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<MetricDto> getAllMetrics() {
-        List<Metric> metrics = metricsRepository.findAll();
-        return metrics.stream()
+    public List<MetricDto> getMetrics(LocalDateTime from, LocalDateTime to) {
+        return metricsRepository.findAllByCreatedAtBetween(from, to)
+                .stream()
                 .map(this::mapToDto)
+                .sorted(Comparator.comparing(MetricDto::getCreatedAt))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<MetricDto> getMetricsByMetricsInfoId(LocalDateTime from, LocalDateTime to, long metricsInfoId) {
+        checkMetricInfoById(metricsInfoId);
+
+        return metricsRepository.findAllByCreatedAtBetweenAndMetricInfoId(from, to, metricsInfoId)
+                .stream()
+                .map(this::mapToDto)
+                .sorted(Comparator.comparing(MetricDto::getCreatedAt))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void saveMetric(Metric metric) {
-        metricsRepository.save(metric);
+        MetricInfo metricInfo = metricsInfoService
+                .getMetricInfoByName(metric.getMetricInfo().getName())
+                .orElse(metric.getMetricInfo());
+
+        metricInfo.addMetric(metric);
+        metricsInfoService.saveMetricInfo(metricInfo);
+    }
+
+    private void checkMetricInfoById(long id) {
+        metricsInfoService.getMetricInfoById(id);
     }
 
     private MetricDto mapToDto(Metric metric) {
         return MetricDto.builder()
-                .id(metric.getId())
-                .name(metric.getName())
-                .description(metric.getDescription())
-                .baseUnit(metric.getBaseUnit())
+                .name(metric.getMetricInfo().getName())
+                .statistic(metric.getStatistic())
+                .value(metric.getValue())
                 .createdAt(metric.getCreatedAt()).build();
     }
 

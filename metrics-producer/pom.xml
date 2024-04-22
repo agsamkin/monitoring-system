@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>com.example</groupId>
-	<artifactId>metrics-producer</artifactId>
+	<artifactId>metricInfos-producer</artifactId>
 	<version>1.01</version>
 
-	<name>metrics-producer</name>
+	<name>metricInfos-producer</name>
 	<description>Metrics Producer Service</description>
 
 	<properties>

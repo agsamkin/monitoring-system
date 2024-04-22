@@ -1,6 +1,6 @@
 package com.example.metricsconsumer.exception;
 
-import com.example.metricsconsumer.exception.custom.MetricNotFoundException;
+import com.example.metricsconsumer.exception.custom.MetricInfoNotFoundException;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -28,8 +28,8 @@ public class BaseExceptionHandler {
     }
 
     @ResponseStatus(NOT_FOUND)
-    @ExceptionHandler(MetricNotFoundException.class)
-    public ErrorResponse metricNotFoundExceptionHandler(MetricNotFoundException exception) {
+    @ExceptionHandler(MetricInfoNotFoundException.class)
+    public ErrorResponse metricNotFoundExceptionHandler(MetricInfoNotFoundException exception) {
         return getErrorResponse(exception.getMessage());
     }
 
