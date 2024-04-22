@@ -1,16 +1,16 @@
 # Metrics producer service 
 
-The service tracks and collects application performance metricInfos using Spring Actuator 
-and send them on a set schedule to a Kafka "metricInfos-topic".
+The service tracks and collects application performance metrics using Spring Actuator 
+and send them on a set schedule to a Kafka "metrics-topic".
 
-The composition of metricInfos can be customized in the "application.metricInfos" property 
+The composition of metrics can be customized in the "application.metrics" property 
 in /src/main/resources/config/application.yml file.
 
 For example:
 
 ```yml
 application:
-  metricInfos: application.ready.time,jvm.memory.max,process.uptime
+  metrics: application.ready.time,jvm.memory.max,process.uptime
 ```
 
-All available metricInfos can be viewed at [http://[host]:[port]/actuator/metricInfos]().
+All available metrics can be viewed at [http://[host]:[port]/actuator/metrics]().
