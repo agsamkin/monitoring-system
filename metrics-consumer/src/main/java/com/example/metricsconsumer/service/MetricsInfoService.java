@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface MetricsInfoService {
     Optional<MetricInfo> getMetricInfoByName(String name);
 
-    MetricInfoDto getMetricInfoById(long id);
+    MetricInfoDto getMetricInfoById(Long id);
     List<MetricInfoDto> getAllMetricsInfo();
 
     void saveMetricInfo(MetricInfo metricInfo);

@@ -40,10 +40,10 @@ public class MetricsServiceImpl implements MetricsService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<MetricDto> getMetricsByMetricsInfoId(LocalDateTime from, LocalDateTime to, long metricsInfoId) {
-        checkMetricInfoById(metricsInfoId);
+    public List<MetricDto> getMetricsByMetricInfoId(LocalDateTime from, LocalDateTime to, Long metricInfoId) {
+        checkMetricInfoById(metricInfoId);
 
-        return metricsRepository.findAllByCreatedAtBetweenAndMetricInfoId(from, to, metricsInfoId)
+        return metricsRepository.findAllByCreatedAtBetweenAndMetricInfoId(from, to, metricInfoId)
                 .stream()
                 .map(this::mapToDto)
                 .sorted(Comparator.comparing(MetricDto::getCreatedAt))
@@ -60,7 +60,7 @@ public class MetricsServiceImpl implements MetricsService {
         metricsInfoService.saveMetricInfo(metricInfo);
     }
 
-    private void checkMetricInfoById(long id) {
+    private void checkMetricInfoById(Long id) {
         metricsInfoService.getMetricInfoById(id);
     }
 

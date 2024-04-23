@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MetricsService {
     List<MetricDto> getMetrics(LocalDateTime from, LocalDateTime to);
-    List<MetricDto> getMetricsByMetricsInfoId(LocalDateTime from, LocalDateTime to, long metricsInfoId);
+    List<MetricDto> getMetricsByMetricInfoId(LocalDateTime from, LocalDateTime to, Long metricInfoId);
 
     void saveMetric(Metric metric);
 }

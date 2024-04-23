@@ -31,7 +31,7 @@ public class MetricsInfoServiceImpl implements MetricsInfoService {
 
     @Transactional(readOnly = true)
     @Override
-    public MetricInfoDto getMetricInfoById(long id) {
+    public MetricInfoDto getMetricInfoById(Long id) {
         MetricInfo metricInfo = metricsInfoRepository.findById(id)
                 .orElseThrow(() -> new MetricInfoNotFoundException("Metric info not found by id: " + id));
         return mapToDto(metricInfo);

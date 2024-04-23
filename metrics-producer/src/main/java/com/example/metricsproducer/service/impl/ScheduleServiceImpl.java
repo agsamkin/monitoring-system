@@ -9,7 +9,6 @@ import com.example.metricsproducer.service.ScheduleService;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ import java.util.List;
 public class ScheduleServiceImpl implements ScheduleService {
 
     public static final int INITIAL_DELAY = 60000;
-    public static final int FIXED_DELAY = 60000; // 300_000;
+    public static final int FIXED_DELAY = 60000;
 
     private final MetricsService metricsService;
     private final MetricsProducer metricsProducer;
