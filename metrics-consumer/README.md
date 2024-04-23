@@ -1,6 +1,6 @@
 # Metrics consumer service
 
-The service takes metrics from Kafka topics "metrics-topic" and saves them to the database.
+The service retrieves metrics from Kafka "metrics-topic" topics and stores them in a database.
 The service provides a REST API for viewing metrics.
 API documentation is available by clicking here: [http://[host]:[port]/api-doc.html]().
 
@@ -40,34 +40,7 @@ Response example:
 Request example:
 
 ```
-GET http://localhost:8082/api/v1/metrics?from=2024-04-01T00:00:00&to=2024-04-22T23:59:59
-```
-
-Response example:
-
-```json
-[
-  {
-    "name": "application.ready.time",
-    "statistic": "VALUE",
-    "value": 8.389,
-    "createdAt": "2024-04-22T19:31:44.586525"
-  },
-  {
-    "name": "jvm.memory.max",
-    "statistic": "VALUE",
-    "value": 5.446303741E9,
-    "createdAt": "2024-04-22T19:31:44.611214"
-  }
-]
-```
-
-#### <u>Get metrics by metric info id</u>
-
-Request example:
-
-```
-GET http://localhost:8082/api/v1/metrics/1?from=2024-04-01T00:00:00&to=2024-04-22T23:59:59
+http://localhost:8082/api/v1/metrics?from=2024-04-01T00:00:00&to=2024-04-30T23:59:59&metricInfoId=1
 ```
 
 Response example:
@@ -84,8 +57,9 @@ Response example:
     "name": "application.ready.time",
     "statistic": "VALUE",
     "value": 7.851,
-    "createdAt": "2024-04-22T19:37:11.137442"
+    "createdAt": "2024-04-22T19:36:11.205786"
   }
 ]
 ```
+
 

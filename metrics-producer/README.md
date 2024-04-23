@@ -1,10 +1,10 @@
 # Metrics producer service 
 
-The service tracks and collects application performance metrics using Spring Actuator 
-and send them on a set schedule to a Kafka "metrics-topic".
+The service tracks and collects application performance metrics using Spring Actuator
+and sends them to a Kafka "metrics-topic" on a scheduled basis.
 
 The composition of metrics can be customized in the "application.metrics" property 
-in /src/main/resources/config/application.yml file.
+in [/src/main/resources/config/application.yml](src/main/resources/config/application.yml) file.
 
 For example:
 
