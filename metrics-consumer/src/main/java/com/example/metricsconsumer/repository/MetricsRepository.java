@@ -8,16 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 
-import java.util.Collection;
 import java.util.List;
 
 @Repository
 public interface MetricsRepository extends JpaRepository<Metric, Long> {
-
     @EntityGraph(attributePaths = "metricInfo")
     List<Metric> findAllByCreatedAtBetween(LocalDateTime from, LocalDateTime to);
 
     @EntityGraph(attributePaths = "metricInfo")
     List<Metric> findAllByCreatedAtBetweenAndMetricInfoId(LocalDateTime from, LocalDateTime to, long metricInfoId);
-
 }

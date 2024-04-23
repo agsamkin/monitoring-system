@@ -37,7 +37,6 @@ public class MetricsEventHandler {
                 .value(metricsEvent.getValue()).build();
 
         try {
-            log.info("Received event: {}", metricsEvent.getName());
             metricsService.saveMetric(metric);
         } catch (Exception e) {
             log.error(e.getMessage());
